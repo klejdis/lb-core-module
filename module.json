@@ -1,0 +1,13 @@
+{
+    "name": "LBCore",
+    "alias": "lbcore",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\LBCore\\Providers\\LBCoreServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
