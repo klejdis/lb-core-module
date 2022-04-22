@@ -1,12 +1,16 @@
 {
-    "name": "nwidart/lbcore",
+    "name": "klejdis/core-module",
     "description": "",
     "authors": [
         {
-            "name": "Nicolas Widart",
-            "email": "n.widart@gmail.com"
+            "name": "klejdis jorgji",
+            "email": ""
         }
     ],
+    "require": {
+        "php": "^8.0.2",
+        "cartalyst/sentinel": "^5.0"
+    },
     "extra": {
         "laravel": {
             "providers": [],
@@ -19,5 +23,6 @@
         "psr-4": {
             "Modules\\LBCore\\": ""
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

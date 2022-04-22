@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('lbcore')->group(function() {
+Route::prefix('core')->group(function() {
     Route::get('/', 'LBCoreController@index');
 });
