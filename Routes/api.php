@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\LBCore\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,12 +13,19 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-//'auth:api'
 
 Route::middleware([])->group(function () {
 
-    Route::controller(\Modules\LBCore\Http\Controllers\AuthController::class)->group(function () {
+    Route::controller(AuthController::class)->group(function () {
         Route::post('/login', 'login');
+    });
+
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('/register', 'register');
     });
 
 });
