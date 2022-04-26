@@ -61,6 +61,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        dd('dsaf');
         Route::prefix('api')
             ->middleware('api')
             ->namespace($this->moduleNamespace)

@@ -12,7 +12,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//'auth:api'
 
-Route::middleware('auth:api')->get('/lbcore', function (Request $request) {
-    return $request->user();
+Route::middleware([])->group(function () {
+
+    Route::controller(\Modules\LBCore\Http\Controllers\AuthController::class)->group(function () {
+        Route::post('/login', 'login');
+    });
+
 });
+
+
