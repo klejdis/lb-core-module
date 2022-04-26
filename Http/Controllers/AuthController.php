@@ -5,6 +5,7 @@ namespace Modules\LBCore\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 
 class AuthController extends Controller
 {
@@ -15,7 +16,8 @@ class AuthController extends Controller
         ];
 
         if(Sentinel::authenticate($credentials)){
-                //asdfas
+
+            return 1;
         }
 
 
