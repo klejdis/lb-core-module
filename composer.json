@@ -10,7 +10,8 @@
     ],
     "require": {
         "php": "^8.0.2",
-        "cartalyst/sentinel": "^6.0"
+        "cartalyst/sentinel": "^6.0",
+        "laravel/sanctum": "^2.14.1"
     },
     "extra": {
         "laravel": {
