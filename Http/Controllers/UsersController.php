@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\LBCore\Entities\User;
 use Modules\LBCore\Repositories\UserRepository;
+use Modules\LBCore\Transformers\UserTransformer;
 
 class UsersController extends Controller
 {

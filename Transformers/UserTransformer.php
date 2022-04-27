@@ -16,7 +16,7 @@ class UserTransformer extends JsonResource
             'email' => $this->resource->email,
             'created_at' => $this->resource->created_at,
             'urls' => [
-                'delete_url' => route('api.user.user.destroy', $this->resource->id),
+                'delete_url' => route('api.users.destroy', $this->resource->id),
             ],
         ];
     }

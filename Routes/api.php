@@ -15,27 +15,35 @@ use Modules\LBCore\Http\Controllers\UsersController;
 |
 */
 
-Route::middleware([])->group(function () {
+Route::name('api.')->group(function () {
 
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('/login', 'login');
+    //Public Routes
+    Route::middleware([])->group(function () {
+        Route::controller(AuthController::class)->group(function () {
+            Route::post('/login', 'login');
+        });
+    });
+
+    //Routes protected from sanctum
+    Route::middleware(['auth:sanctum'])->group(function () {
+
+        Route::controller(AuthController::class)->group(function () {
+            Route::post('/register', 'register');
+        });
+
+        Route::name('users.')->group(function () {
+            Route::controller(UsersController::class)->group(function () {
+                Route::get('/users', 'index')->name('index');
+                Route::post('/users/store', 'store');
+                Route::get('/users/{user}/show', 'show');
+                Route::delete('/users/{user}/destroy', 'destroy')->name('destroy');
+            });
+        });
+
+
     });
 
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-
-    Route::controller(AuthController::class)->group(function () {
-        Route::post('/register', 'register');
-    });
-
-    Route::controller(UsersController::class)->group(function () {
-        Route::get('/users', 'index');
-        Route::post('/users/store', 'store');
-        Route::get('/users/{user}/show', 'show');
-        Route::delete('/users/{user}/destroy', 'destroy');
-    });
-
-});
 
 
