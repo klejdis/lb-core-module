@@ -23,13 +23,23 @@ class AuthController extends Controller
             'password'    => $request->input('password'),
         ];
 
-        if($user = Sentinel::authenticate($credentials)){
+        try {
+            if($user = Sentinel::authenticate($credentials)){
+                return $user->createToken($user->email)->plainTextToken;
+            }
+        }catch (\Exception $exception){
+            return response()->json([
+                'errors' => true,
+                'message' => $exception->getMessage(),
 
-            return $user->createToken($user->email)->plainTextToken;
+            ]);
         }
 
-        return 0;
+        return response()->json([
+            'errors' => false,
+            'message' => 'Login Error, Email or Password Incorrect',
 
+        ]);
     }
 
     public function register(Request $request){

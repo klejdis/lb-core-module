@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\LBCore\Http\Controllers\AuthController;
+use Modules\LBCore\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::controller(AuthController::class)->group(function () {
         Route::post('/register', 'register');
+    });
+
+    Route::controller(UsersController::class)->group(function () {
+        Route::get('/users', 'index');
+        Route::post('/users/store', 'store');
+        Route::get('/users/{user}/show', 'show');
+        Route::delete('/users/{user}/destroy', 'destroy');
     });
 
 });

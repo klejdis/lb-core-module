@@ -2,8 +2,11 @@
 
 namespace Modules\LBCore\Providers;
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
+use Modules\LBCore\Database\Seeders\LBCoreDatabaseSeeder;
+use Modules\LBCore\Repositories\Sentinel\SentinelUserRepository;
+use Modules\LBCore\Repositories\UserRepository;
 
 class LBCoreServiceProvider extends ServiceProvider
 {
@@ -28,6 +31,7 @@ class LBCoreServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+        $this->loadModuleSeeds();
     }
 
     /**
@@ -38,6 +42,7 @@ class LBCoreServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->registerBindings();
     }
 
     /**
@@ -109,4 +114,19 @@ class LBCoreServiceProvider extends ServiceProvider
         }
         return $paths;
     }
+
+    private function loadModuleSeeds(){
+        $this->callAfterResolving(DatabaseSeeder::class, function ($seeder){
+            $seeder->call(LBCoreDatabaseSeeder::class);
+        });
+    }
+
+    private function registerBindings()
+    {
+        $this->app->bind(
+            UserRepository::class,
+            SentinelUserRepository::class
+        );
+    }
+
 }
