@@ -25,7 +25,8 @@ Route::name('api.')->group(function () {
     });
 
     //Routes protected from sanctum
-    Route::middleware(['auth:sanctum'])->group(function () {
+    //'auth:sanctum'
+    Route::middleware([])->group(function () {
 
         Route::controller(AuthController::class)->group(function () {
             Route::post('/register', 'register');
