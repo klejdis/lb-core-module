@@ -5,6 +5,8 @@ namespace Modules\LBCore\Providers;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Support\ServiceProvider;
 use Modules\LBCore\Database\Seeders\LBCoreDatabaseSeeder;
+use Modules\LBCore\Repositories\RoleRepository;
+use Modules\LBCore\Repositories\Sentinel\SentinelRoleRepository;
 use Modules\LBCore\Repositories\Sentinel\SentinelUserRepository;
 use Modules\LBCore\Repositories\UserRepository;
 
@@ -127,6 +129,13 @@ class LBCoreServiceProvider extends ServiceProvider
             UserRepository::class,
             SentinelUserRepository::class
         );
+
+        $this->app->bind(
+            RoleRepository::class,
+            SentinelRoleRepository::class
+        );
+
+
     }
 
 }

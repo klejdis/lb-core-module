@@ -5,25 +5,23 @@ namespace Modules\LBCore\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\LBCore\Entities\Role;
 use Modules\LBCore\Entities\User;
+use Modules\LBCore\Repositories\RoleRepository;
 use Modules\LBCore\Repositories\UserRepository;
+use Modules\LBCore\Transformers\RoleTransformer;
 use Modules\LBCore\Transformers\UserTransformer;
 
-class UsersController extends Controller
+class RolesController extends Controller
 {
-
     /**
-     * @var UserRepository
+     * @var RoleRepository
      */
-    private $user;
-    /**
-     * @var PermissionManager
-     */
-    private $permissions;
+    private $role;
 
-    public function __construct(UserRepository $user)
+    public function __construct(RoleRepository $role)
     {
-        $this->user = $user;
+        $this->role = $role;
     }
 
     /**
@@ -32,7 +30,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        return UserTransformer::collection($this->user->serverPaginationFilteringFor($request));
+        return RoleTransformer::collection($this->role->all());
+
     }
 
     /**
@@ -43,24 +42,17 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|unique:users|email',
-            'password' => 'required|min:6|confirmed',
-            'is_activated' => 'nullable|boolean',
+            'name' => 'required',
+            'slug' => 'required|unique:roles,slug',
         ]);
 
         $data = $request->all();
 
-        $this->user->createWithRoles(
-            $data,
-            $request->get('roles',[]),
-            $request->get('is_activated',false)
-        );
+        $this->role->create($data);
 
         return response()->json([
             'errors' => false,
-            'message' => trans('user::messages.user created'),
+            'message' => trans('user::messages.role created'),
         ]);
     }
 
@@ -69,9 +61,9 @@ class UsersController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function show(User $user)
+    public function show(Role $role)
     {
-        return (new UserTransformer($user));
+        return  (new RoleTransformer($role));
     }
 
 
@@ -81,15 +73,15 @@ class UsersController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Role $role)
     {
         $data = $request->all();
 
-        $this->user->updateAndSyncRoles($user->id, $data, $request->get('roles'));
+        $this->role->update($role->id, $data);
 
         return response()->json([
             'errors' => false,
-            'message' => trans('user::messages.user updated'),
+            'message' => trans('user::messages.role updated'),
         ]);
     }
 
@@ -98,13 +90,13 @@ class UsersController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function destroy(User $user)
+    public function destroy(Role $role)
     {
-        $this->user->delete($user->id);
+        $this->role->delete($role->id);
 
         return response()->json([
             'errors' => false,
-            'message' => trans('user::messages.user deleted'),
+            'message' => trans('user::messages.role deleted'),
         ]);
     }
 }

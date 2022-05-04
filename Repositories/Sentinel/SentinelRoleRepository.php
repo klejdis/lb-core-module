@@ -6,11 +6,7 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Modules\User\Events\RoleIsCreating;
-use Modules\User\Events\RoleIsUpdating;
-use Modules\User\Events\RoleWasCreated;
-use Modules\User\Events\RoleWasUpdated;
-use Modules\User\Repositories\RoleRepository;
+use Modules\LBCore\Repositories\RoleRepository;
 
 class SentinelRoleRepository implements RoleRepository
 {
@@ -66,10 +62,7 @@ class SentinelRoleRepository implements RoleRepository
      */
     public function create($data)
     {
-        event($event = new RoleIsCreating($data));
-        $role = $this->role->create($event->getAttributes());
-
-        event(new RoleWasCreated($role));
+        $role = $this->role->create($data);
 
         return $role;
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\LBCore\Http\Controllers\AuthController;
+use Modules\LBCore\Http\Controllers\RolesController;
 use Modules\LBCore\Http\Controllers\UsersController;
 
 /*
@@ -38,6 +39,15 @@ Route::name('api.')->group(function () {
                 Route::post('/users/store', 'store');
                 Route::get('/users/{user}/show', 'show');
                 Route::delete('/users/{user}/destroy', 'destroy')->name('destroy');
+            });
+        });
+
+        Route::name('roles.')->group(function () {
+            Route::controller(RolesController::class)->group(function () {
+                Route::get('/roles', 'index')->name('index');
+                Route::post('/roles/store', 'store');
+                Route::get('/roles/{role}/show', 'show');
+                Route::delete('/roles/{role}/destroy', 'destroy')->name('destroy');
             });
         });
 
