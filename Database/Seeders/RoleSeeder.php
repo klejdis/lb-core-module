@@ -18,20 +18,24 @@ class RoleSeeder extends Seeder
     {
         $groups = Sentinel::getRoleRepository();
 
-        // Create an Admin group
-        $groups->createModel()->create(
-            [
-                'name' => 'Admin',
-                'slug' => 'admin',
-            ]
-        );
+        if (!$groups->findBySlug('admin')){
+            // Create an Admin group
+            $groups->createModel()->create(
+                [
+                    'name' => 'Admin',
+                    'slug' => 'admin',
+                ]
+            );
+        }
 
-        // Create an Users group
-        $groups->createModel()->create(
-            [
-                'name' => 'User',
-                'slug' => 'user',
-            ]
-        );
+        if (!$groups->findBySlug('user')) {
+            // Create an Users group
+            $groups->createModel()->create(
+                [
+                    'name' => 'User',
+                    'slug' => 'user',
+                ]
+            );
+        }
     }
 }
