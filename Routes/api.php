@@ -38,6 +38,7 @@ Route::name('api.')->group(function () {
                 Route::get('/users', 'index')->name('index');
                 Route::post('/users/store', 'store');
                 Route::get('/users/{user}/show', 'show');
+                Route::patch('/users/{user}/update', 'update');
                 Route::delete('/users/{user}/destroy', 'destroy')->name('destroy');
             });
         });

@@ -71,7 +71,9 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return (new UserTransformer($user));
+
+
+        return (new UserTransformer($user->load('roles')));
     }
 
 
