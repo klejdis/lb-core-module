@@ -34,6 +34,11 @@ class RolesController extends Controller
 
     }
 
+    public function roles(Request $request)
+    {
+        return RoleTransformer::collection($this->role->serverPaginationFilteringFor($request));
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param Request $request

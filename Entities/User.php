@@ -2,6 +2,7 @@
 
 namespace Modules\LBCore\Entities;
 
+use Cartalyst\Sentinel\Laravel\Facades\Activation;
 use Cartalyst\Sentinel\Users\EloquentUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,6 +26,18 @@ class User extends EloquentUser
     protected static function newFactory()
     {
         return UserFactory::new();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isActivated()
+    {
+        if (is_integer($this->getKey()) && Activation::completed($this)) {
+            return true;
+        }
+
+        return false;
     }
 
 }

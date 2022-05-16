@@ -87,12 +87,8 @@ class SentinelRoleRepository implements RoleRepository
     {
         $role = $this->role->find($id);
 
-        event($event = new RoleIsUpdating($role, $data));
-
-        $role->fill($event->getAttributes());
+        $role->fill($data);
         $role->save();
-
-        event(new RoleWasUpdated($role));
 
         return $role;
     }

@@ -46,8 +46,10 @@ Route::name('api.')->group(function () {
         Route::name('roles.')->group(function () {
             Route::controller(RolesController::class)->group(function () {
                 Route::get('/roles', 'index')->name('index');
+                Route::get('/roles/paginated', 'roles')->name('paginated');
                 Route::post('/roles/store', 'store');
                 Route::get('/roles/{role}/show', 'show');
+                Route::patch('/roles/{role}/update', 'update');
                 Route::delete('/roles/{role}/destroy', 'destroy')->name('destroy');
             });
         });
