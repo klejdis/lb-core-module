@@ -13,6 +13,7 @@ class RoleTransformer extends JsonResource
             'name' => $this->resource->name,
             'slug' => $this->resource->slug,
             'created_at' => $this->resource->created_at,
+            'permissions' => $this->resource->getPermissions(),
         ];
     }
 }

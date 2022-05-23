@@ -14,4 +14,6 @@ use Modules\LBCore\Presenters\UserPresenter;
 class Role extends EloquentRole
 {
 
+
+
 }

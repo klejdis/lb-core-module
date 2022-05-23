@@ -16,5 +16,6 @@ class LBCoreDatabaseSeeder extends Seeder
     {
         $this->call(UsersSeeder::class);
         $this->call(RoleSeeder::class);
+        $this->call(PermissionSeeder::class);
     }
 }

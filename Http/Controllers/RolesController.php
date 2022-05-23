@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\LBCore\Entities\Role;
 use Modules\LBCore\Entities\User;
+use Modules\LBCore\Repositories\PermissionRepository;
 use Modules\LBCore\Repositories\RoleRepository;
 use Modules\LBCore\Repositories\UserRepository;
 use Modules\LBCore\Transformers\RoleTransformer;
@@ -44,7 +45,7 @@ class RolesController extends Controller
      * @param Request $request
      * @return Renderable
      */
-    public function store(Request $request)
+    public function store(Request $request, PermissionRepository $permissionRepository)
     {
         $request->validate([
             'name' => 'required',

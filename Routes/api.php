@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Modules\LBCore\Http\Controllers\AuthController;
+use Modules\LBCore\Http\Controllers\PermissionsController;
 use Modules\LBCore\Http\Controllers\RolesController;
 use Modules\LBCore\Http\Controllers\UsersController;
 
@@ -51,6 +52,12 @@ Route::name('api.')->group(function () {
                 Route::get('/roles/{role}/show', 'show');
                 Route::patch('/roles/{role}/update', 'update');
                 Route::delete('/roles/{role}/destroy', 'destroy')->name('destroy');
+            });
+        });
+
+        Route::name('permissions.')->group(function () {
+            Route::controller(PermissionsController::class)->group(function () {
+                Route::get('/permissions', 'index')->name('index');
             });
         });
 
