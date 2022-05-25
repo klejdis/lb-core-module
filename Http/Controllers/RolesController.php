@@ -54,6 +54,8 @@ class RolesController extends Controller
 
         $data = $request->all();
 
+        $data['permissions'] = $permissionRepository->getPermissionsFromGroup($request->permissions);
+
         $this->role->create($data);
 
         return response()->json([
@@ -79,9 +81,11 @@ class RolesController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, Role $role, PermissionRepository $permissionRepository)
     {
         $data = $request->all();
+
+        $data['permissions'] = $permissionRepository->getPermissionsFromGroup($request->permissions);
 
         $this->role->update($role->id, $data);
 

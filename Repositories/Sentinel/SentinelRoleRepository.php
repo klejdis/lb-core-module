@@ -62,6 +62,8 @@ class SentinelRoleRepository implements RoleRepository
      */
     public function create($data)
     {
+
+
         $role = $this->role->create($data);
 
         return $role;
