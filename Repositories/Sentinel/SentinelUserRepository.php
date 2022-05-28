@@ -180,11 +180,11 @@ class SentinelUserRepository implements UserRepository
      */
     public function serverPaginationFilteringFor(Request $request): LengthAwarePaginator
     {
-        $roles = $this->allWithBuilder();
+        $data = $this->allWithBuilder();
 
         if ($request->get('search') !== null) {
             $term = $request->get('search');
-            $roles->whereRaw('CONCAT(first_name, " ", last_name) LIKE ? ', "%{$term}%")
+            $data->whereRaw('CONCAT(first_name, " ", last_name) LIKE ? ', "%{$term}%")
                 ->orWhere('email', 'LIKE', "%{$term}%")
                 ->orWhere('id', $term);
         }
@@ -192,12 +192,12 @@ class SentinelUserRepository implements UserRepository
         if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
             $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
 
-            $roles->orderBy($request->get('order_by'), $order);
+            $data->orderBy($request->get('order_by'), $order);
         } else {
-            $roles->orderBy('created_at', 'desc');
+            $data->orderBy('created_at', 'desc');
         }
 
-        return $roles->paginate($request->get('per_page', 10));
+        return $data->paginate($request->get('per_page', 10));
     }
 
     public function allWithBuilder() : Builder
