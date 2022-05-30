@@ -27,8 +27,7 @@ Route::name('api.')->group(function () {
     });
 
     //Routes protected from sanctum
-    //'auth:sanctum'
-    Route::middleware([])->group(function () {
+    Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::controller(AuthController::class)->group(function () {
             Route::post('/register', 'register');
@@ -46,7 +45,7 @@ Route::name('api.')->group(function () {
 
         Route::name('roles.')->group(function () {
             Route::controller(RolesController::class)->group(function () {
-                Route::post('/roles', 'index')->name('index');
+                Route::get('/roles', 'index')->name('index');
                 Route::post('/roles/paginated', 'roles')->name('paginated');
                 Route::post('/roles/store', 'store');
                 Route::get('/roles/{role}/show', 'show');
