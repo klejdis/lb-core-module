@@ -36,24 +36,25 @@ class SentinelRoleRepository implements RoleRepository
      */
     public function serverPaginationFilteringFor(Request $request): LengthAwarePaginator
     {
-        $roles = $this->allWithBuilder();
+        $data = $this->allWithBuilder();
 
         if ($request->get('search') !== null) {
             $term = $request->get('search');
-            $roles->where('name', 'LIKE', "%{$term}%")
+            $data->where('name', 'LIKE', "%{$term}%")
                 ->orWhere('slug', 'LIKE', "%{$term}%")
                 ->orWhere('id', $term);
         }
 
-        if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
-            $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
 
-            $roles->orderBy($request->get('order_by'), $order);
+        if ($request->input('sortModel')) {
+            $order = $request->input('sortModel');
+
+            $data->orderBy($order[0]['colId'], $order[0]['sort']);
         } else {
-            $roles->orderBy('created_at', 'desc');
+            $data->orderBy('created_at', 'desc');
         }
 
-        return $roles->paginate($request->get('per_page', 10));
+        return $data->paginate($request->get('per_page', 10));
     }
 
     /**

@@ -25,7 +25,9 @@ class AuthController extends Controller
 
         try {
             if($user = Sentinel::authenticate($credentials)){
-                return $user->createToken($user->email)->plainTextToken;
+                return response()->json([
+                    'data' => $user->createToken($user->email)->plainTextToken
+                ]);
             }
         }catch (\Exception $exception){
             return response()->json([

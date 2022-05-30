@@ -36,7 +36,7 @@ Route::name('api.')->group(function () {
 
         Route::name('users.')->group(function () {
             Route::controller(UsersController::class)->group(function () {
-                Route::get('/users', 'index')->name('index');
+                Route::post('/users', 'index')->name('index');
                 Route::post('/users/store', 'store');
                 Route::get('/users/{user}/show', 'show');
                 Route::patch('/users/{user}/update', 'update');
@@ -46,8 +46,8 @@ Route::name('api.')->group(function () {
 
         Route::name('roles.')->group(function () {
             Route::controller(RolesController::class)->group(function () {
-                Route::get('/roles', 'index')->name('index');
-                Route::get('/roles/paginated', 'roles')->name('paginated');
+                Route::post('/roles', 'index')->name('index');
+                Route::post('/roles/paginated', 'roles')->name('paginated');
                 Route::post('/roles/store', 'store');
                 Route::get('/roles/{role}/show', 'show');
                 Route::patch('/roles/{role}/update', 'update');

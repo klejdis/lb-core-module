@@ -189,10 +189,10 @@ class SentinelUserRepository implements UserRepository
                 ->orWhere('id', $term);
         }
 
-        if ($request->get('order_by') !== null && $request->get('order') !== 'null') {
-            $order = $request->get('order') === 'ascending' ? 'asc' : 'desc';
+        if ($request->input('params.sortModel')) {
+            $order = $request->input('params.sortModel');
 
-            $data->orderBy($request->get('order_by'), $order);
+            $data->orderBy($order[0]['colId'], $order[0]['sort']);
         } else {
             $data->orderBy('created_at', 'desc');
         }
