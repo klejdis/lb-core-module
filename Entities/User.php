@@ -40,4 +40,15 @@ class User extends EloquentUser
         return false;
     }
 
+    public function getRolesPermissions(){
+        $permissions = [];
+
+        foreach ($this->getRoles() as $role){
+
+            $permissions = array_merge($permissions, $role->getPermissions() );
+        }
+
+        return $permissions;
+    }
+
 }

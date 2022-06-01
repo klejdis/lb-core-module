@@ -5,6 +5,7 @@ namespace Modules\LBCore\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\LBCore\Entities\Role;
 use Modules\LBCore\Entities\User;
 use Modules\LBCore\Repositories\PermissionRepository;
@@ -34,6 +35,14 @@ class PermissionsController extends Controller
     {
         return (
             new PermissionsTransformer(  $this->repository->getPermissionsGroupped() )
+        );
+
+    }
+
+    public function userPermissions(Request $request)
+    {
+        return (
+            new PermissionsTransformer( Auth::user()->getRolesPermissions() )
         );
 
     }

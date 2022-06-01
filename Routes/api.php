@@ -57,6 +57,7 @@ Route::name('api.')->group(function () {
         Route::name('permissions.')->group(function () {
             Route::controller(PermissionsController::class)->group(function () {
                 Route::get('/permissions', 'index')->name('index');
+                Route::get('/permissions/user', 'userPermissions')->name('user.permissions');
             });
         });
 

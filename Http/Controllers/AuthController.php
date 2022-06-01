@@ -23,10 +23,13 @@ class AuthController extends Controller
             'password'    => $request->input('password'),
         ];
 
+
         try {
             if($user = Sentinel::authenticate($credentials)){
                 return response()->json([
-                    'data' => $user->createToken($user->email)->plainTextToken
+                    'data' => $user->createToken($user->email,[
+                        $user->getRolesPermissions()
+                    ])->plainTextToken
                 ]);
             }
         }catch (\Exception $exception){
