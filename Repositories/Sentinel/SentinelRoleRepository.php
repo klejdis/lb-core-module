@@ -46,15 +46,15 @@ class SentinelRoleRepository implements RoleRepository
         }
 
 
-        if ($request->input('sortModel')) {
-            $order = $request->input('sortModel');
+        if ($request->input('params.sortModel')) {
+            $order = $request->input('params.sortModel');
 
             $data->orderBy($order[0]['colId'], $order[0]['sort']);
         } else {
             $data->orderBy('created_at', 'desc');
         }
 
-        return $data->paginate($request->get('per_page', 10));
+        return $data->paginate($request->get('params.per_page', 10));
     }
 
     /**
